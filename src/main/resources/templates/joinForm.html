@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<h1>회원수정폼</h1>
+<form action="/member" method="post">
+  ID : <input type="text" name="id" /><br/>${member.id}
+  PW : <input type="text" name="pw" /><br/>
+  ADDR : <input type="text" name="addr" /><br/>
+  TEL : <input type="text" name="tel" /><br/>
+  <button>회원가입</button>
+</form>
+</body>
+</html>
