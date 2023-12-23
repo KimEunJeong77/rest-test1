@@ -45,9 +45,13 @@ public class MemberController {
     }
 
     @GetMapping("/list")
-    public String findMemberList(){
-        return memberService.findMemberList().toString();
+    public ModelAndView findMemberList() {
+        ModelAndView mv=new ModelAndView("/list");
+        List<MemberDTO> list=memberService.findMemberList();
+        mv.addObject("list", list);
+        return mv;
     }
+
 
     @GetMapping("/list2")
     public Map<String,Object> memberAjaxList(Model model){
