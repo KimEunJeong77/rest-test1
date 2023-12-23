@@ -3,8 +3,13 @@ package com.example.demo.controller;
 import com.example.demo.dto.MemberDTO;
 import com.example.demo.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/member")
@@ -19,9 +24,11 @@ public class MemberController {
         return mv;
     }
 
-    @GetMapping("/update-form")
-    public ModelAndView updateForm(){
+    @GetMapping("/update-form/{id}")
+    public ModelAndView updateForm(@PathVariable String id){
         ModelAndView mv=new ModelAndView("/updateForm");
+        MemberDTO dto=memberService.findMemberDetail(id);
+        mv.addObject("member",dto);
         return mv;
     }
 
@@ -40,6 +47,14 @@ public class MemberController {
     @GetMapping("/list")
     public String findMemberList(){
         return memberService.findMemberList().toString();
+    }
+
+    @GetMapping("/list2")
+    public Map<String,Object> memberAjaxList(Model model){
+        List<MemberDTO> list=memberService.findMemberList();
+        Map<String,Object> map=new HashMap<>();
+        map.put("list", list);
+        return map;
     }
 
     @GetMapping("/{id}")
@@ -64,8 +79,9 @@ public class MemberController {
         return "회원가입됨";
     }
 
-    @DeleteMapping ("/{id}")
-    public String removeMember(@PathVariable String id) {
+    @DeleteMapping
+    public String removeMember(@RequestParam String id) {
+
         memberService.removeMember(id);
         return "회원삭제됨";
     }

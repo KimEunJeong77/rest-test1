@@ -19,6 +19,6 @@
     </insert>
 
     <delete id="deleteMember">
-        SELECT * from member where id=#{id}
+        delete from member where id=#{id}
     </delete>
 </mapper>
